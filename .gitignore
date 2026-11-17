@@ -1,0 +1,45 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js build output
+/.next/
+/out/
+/build
+
+# TypeScript
+*.tsbuildinfo
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# SQLite temporary journal files
+*dev.db-journal
+*dev.db-shm
+*dev.db-wal
+
+# Temporary inspection & scrape scripts
+inspect_*.js
+analyze_*.js
+parse_*.js
+check_bottom.js
+find_hero.js
+dump_main_content.js
+fetch_api.js
+download_official_assets.js
+live_*.html
+main_content_*
+page_*
