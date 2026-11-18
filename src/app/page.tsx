@@ -50,24 +50,31 @@ const CATEGORY_VERTICALS = [
 ];
 
 export default async function HomePage() {
-  // Fetch real database records
-  const featuredProducts = await prisma.product.findMany({
-    where: { status: 'APPROVED' },
-    take: 8,
-    include: {
-      images: { where: { isPrimary: true }, take: 1 },
-      store: { select: { id: true, name: true, slug: true } },
-    },
-    orderBy: { rating: 'desc' },
-  });
+  // Fetch real database records with resilient error handling
+  let featuredProducts: any[] = [];
+  let stores: any[] = [];
 
-  const stores = await prisma.store.findMany({
-    where: { isActive: true },
-    take: 3,
-    include: {
-      _count: { select: { products: true } },
-    },
-  });
+  try {
+    featuredProducts = await prisma.product.findMany({
+      where: { status: 'APPROVED' },
+      take: 8,
+      include: {
+        images: { where: { isPrimary: true }, take: 1 },
+        store: { select: { id: true, name: true, slug: true } },
+      },
+      orderBy: { rating: 'desc' },
+    });
+
+    stores = await prisma.store.findMany({
+      where: { isActive: true },
+      take: 3,
+      include: {
+        _count: { select: { products: true } },
+      },
+    });
+  } catch (error) {
+    console.error('HomePage database query error:', error);
+  }
 
   return (
     <div className="space-y-16 sm:space-y-20 pb-20">
